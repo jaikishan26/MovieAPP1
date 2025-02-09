@@ -148,7 +148,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel){
                 item {
                     nowPlayingMovies.let {resource ->
                         if(resource is Resource.Success && !resource.data.isNullOrEmpty()){
-                            //FeaturedMovieBanner(movie = resource.data.first(),navController)
+                            FeaturedMovieBanner(movie = resource.data.first(),navController)
                         }
                     }
                 }

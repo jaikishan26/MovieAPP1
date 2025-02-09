@@ -23,11 +23,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.movieapp.Data.MovieEntity
 import com.example.movieapp.Movie
 import com.example.movieapp.Util.Constant
 
 @Composable
-fun FeaturedMovieBanner(movie: Movie, navController: NavController) {
+fun FeaturedMovieBanner(movie: MovieEntity, navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,7 +41,7 @@ fun FeaturedMovieBanner(movie: Movie, navController: NavController) {
             }
     ) {
         AsyncImage(
-            model = "${Constant.IMAGE_BASE_URL}${movie.poster_path}",
+            model = "${Constant.IMAGE_BASE_URL}${movie.posterPath}",
             contentDescription = movie.title,
             modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(8.dp))
         )

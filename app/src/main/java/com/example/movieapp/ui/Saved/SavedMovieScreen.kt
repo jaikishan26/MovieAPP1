@@ -24,10 +24,12 @@ import com.example.movieapp.ui.components.MovieCard
 import com.example.movieapp.ui.details.MovieDetailsViewModel
 
 @Composable
-fun SavedMovieScreen(navController: NavController){
-    val viewModel: MovieDetailsViewModel = viewModel()
+fun SavedMovieScreen(navController: NavController, viewModel: MovieDetailsViewModel){
+    //val viewModel: MovieDetailsViewModel = viewModel()
 
     val savedMovies by viewModel.savedMovies.collectAsState()
+    //val savedMovies
+
 
     Column(modifier = Modifier
         .fillMaxSize()

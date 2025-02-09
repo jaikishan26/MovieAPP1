@@ -33,6 +33,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
+import com.example.movieapp.Data.MovieEntity
 import com.example.movieapp.Movie
 import com.example.movieapp.Util.Constant
 import com.example.movieapp.Util.Resource
@@ -40,11 +41,11 @@ import com.example.movieapp.ui.components.LoadingIndicator
 
 @Composable
 fun MovieDetailsScreen(
-    navController: NavController, movieId: Int //  done to handle deeplink scenario
+    navController: NavController, movieId: Int, viewModel:MovieDetailsViewModel //  done to handle deeplink scenario
 ){
-    val viewModel: MovieDetailsViewModel = viewModel()
+    //val viewModel: MovieDetailsViewModel = viewModel()
     val savedState = navController.previousBackStackEntry?.savedStateHandle
-    val selectedMovie = savedState?.get<Movie>("selectedMovie")
+    val selectedMovie = savedState?.get<MovieEntity>("selectedMovie")
 
     LaunchedEffect(selectedMovie) {
         selectedMovie?.let { viewModel.setMovieDetails(it) }
@@ -72,7 +73,8 @@ fun MovieDetailsScreen(
                                 //CircularProgressIndicator(modifier = Modifier.fillMaxSize())
         is Resource.Success -> {
             val movie = (movieState as Resource.Success).data ?: return
-            val isSaved = movie?.id?.let { viewModel.isMovieSaved(it) }
+            val isSaved = movie.isBookmarked
+            //val isSaved = movie?.id?.let { viewModel.isMovieSaved(it) }
             //val isSaved = savedMovies is Resource.Success && (savedMovies as Resource.Success).data!!.contains(movie)
             Column(
                 modifier = Modifier
@@ -93,7 +95,7 @@ fun MovieDetailsScreen(
 
                 if (movie != null) {
                     AsyncImage(
-                        model = "${Constant.IMAGE_BASE_URL}${movie.poster_path}",
+                        model = "${Constant.IMAGE_BASE_URL}${movie.posterPath}",
                         contentDescription = "${movie.title} Poster",
                         modifier = Modifier.size(400.dp)
                             .clip(RoundedCornerShape(12.dp))

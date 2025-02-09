@@ -108,6 +108,9 @@ dependencies {
         implementation("com.google.dagger:dagger:2.48")
        kapt("com.google.dagger:dagger-compiler:2.48")
 
+    //srrialization
+    //implementation("libs.kotlin.serialization.json")
+
 
     //logging
     implementation(libs.logging.interceptor)

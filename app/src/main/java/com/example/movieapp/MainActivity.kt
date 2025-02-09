@@ -14,13 +14,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.DependencyInjection.HomeComponent
 import com.example.movieapp.ui.Navigation.NavGraph
+import com.example.movieapp.ui.details.MovieDetailsViewModel
 import com.example.movieapp.ui.home.HomeViewModel
+import com.example.movieapp.ui.search.SearchViewModel
 import com.example.movieapp.ui.theme.MovieAPPTheme
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
     lateinit var homeComponent: HomeComponent
    @Inject lateinit var viewModel: HomeViewModel
+   @Inject lateinit var detialViewModel: MovieDetailsViewModel
+   @Inject lateinit var searchViewModel: SearchViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         homeComponent = (applicationContext as MyApplication)
             .appComponent.homeComponent().create()
@@ -32,7 +36,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MovieAPPTheme {
                 //val navController = rememberNavController()
-                NavGraph(viewModel = viewModel)
+                NavGraph(viewModel = viewModel, detialViewModel = detialViewModel, searchViewModel = searchViewModel)
                 /*Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
                         name = "Android",

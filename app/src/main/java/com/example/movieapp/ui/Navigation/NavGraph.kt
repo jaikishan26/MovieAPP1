@@ -10,38 +10,53 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import com.example.movieapp.Data.MovieEntity
 import com.example.movieapp.Util.Screen
 import com.example.movieapp.ui.Saved.SavedMovieScreen
 import com.example.movieapp.ui.details.MovieDetailsScreen
+import com.example.movieapp.ui.details.MovieDetailsViewModel
 import com.example.movieapp.ui.home.HomeScreen
 import com.example.movieapp.ui.home.HomeViewModel
 import com.example.movieapp.ui.search.SearchScreen
+import com.example.movieapp.ui.search.SearchViewModel
+import kotlin.reflect.typeOf
 
 
 @Composable
-fun NavGraph(navController: NavHostController = rememberNavController(), viewModel: HomeViewModel){
+fun NavGraph(navController: NavHostController = rememberNavController(), viewModel: HomeViewModel,
+             detialViewModel: MovieDetailsViewModel, searchViewModel: SearchViewModel){
    NavHost(navController = navController,
        startDestination = "home") {
+//       composable<MovieListRoute>{
+//           HomeScreen(navController, viewModel)
+//       }
+//
+//       composable<MovieDetailRoute>(
+//           typeMap = mapOf(
+//               typeOf<MovieEntity>()
+//           )
+//       )
        composable("home"){
            HomeScreen(navController, viewModel)
        }
+
        composable(
            route = "details/{movieId}",
            arguments = listOf(navArgument("movieId"){type = NavType.IntType}),
            deepLinks = listOf(navDeepLink { uriPattern = "https://myapp.com/details/{movieId}" })
        ){ backStackEntry ->
            val movieId = backStackEntry.arguments?.getInt("movieId")?:-1
-           MovieDetailsScreen(navController, movieId)
+           MovieDetailsScreen(navController, movieId, detialViewModel)
            //backStackEntry ->
            //val movieId = backStackEntry.arguments?.getString("movieId")?.toIntOrNull()
 
        }
        composable("search"){
-           SearchScreen(navController)
+           SearchScreen(navController, searchViewModel)
        }
 
        composable("saved"){
-           SavedMovieScreen(navController)
+           SavedMovieScreen(navController, detialViewModel)
        }
 
 

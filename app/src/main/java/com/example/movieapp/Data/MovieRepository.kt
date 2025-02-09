@@ -29,10 +29,10 @@ class MovieRepository @Inject constructor(
         println("GET NIOW PLAYING CALLED")
         return try {
             val response = apiService.getNowPlayingMovies(Constant.API_KEY,page) //network call
-            val movies = movieMapper.toMovieEntityList(response.results)
+            val movies = movieMapper.toMovieEntityList(response.results, page,"NowPlaying")
             movieDao.insertMovies(movies)
 //            Resource.Success(movies)
-            val list = movieDao.getAllMovies().first()
+            val list = movieDao.getAllMovies(page, "NowPlaying").first()
             Resource.Success(list)
 
             //Resource.Error( "Error Occurred")
@@ -47,9 +47,9 @@ class MovieRepository @Inject constructor(
     suspend fun getTrendingMovies(page:Int): Resource<List<MovieEntity>>{
         return try {
             val response = apiService.getTrendingMovies(Constant.API_KEY, page) //network call
-            val movies = movieMapper.toMovieEntityList(response.results)
+            val movies = movieMapper.toMovieEntityList(response.results, page,"Trending")
             movieDao.insertMovies(movies)
-            val list = movieDao.getAllMovies().first()
+            val list = movieDao.getAllMovies(page,"Trending").first()
             Resource.Success(list)
             //Resource.Success(movies)
         } catch (e: Exception){
@@ -58,18 +58,18 @@ class MovieRepository @Inject constructor(
     }
 
 
-  /*  //Getting Bookmarked Movies
+    //Getting Bookmarked Movies
     fun getBookmarkedMovies():Flow<List<MovieEntity>>{
         return movieDao.getBookmarkedMovies()
     }
 
     //Bookmarking a Movie
-    suspend fun bookmarkAMovie(movieId:Int, isBookmarked:Boolean){
-        val movie = movieDao.getMovieById(movieId)
+    suspend fun bookmarkAMovie(movie:MovieEntity, isBookmarked:Boolean){
+        val movie = movieDao.getMovieById(movie.id)
         movie?.let {
             //let used to handle nullable -- if movie null the let block is skipped
             val updatedMovie = it.copy(isBookmarked = isBookmarked)  // updating val
             movieDao.updateMovie(updatedMovie)
         }
-    }*/
+    }
 }

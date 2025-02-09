@@ -26,11 +26,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.movieapp.Data.MovieEntity
 import com.example.movieapp.Movie
 import com.example.movieapp.Util.Constant
 
 @Composable
-fun MovieCard(movie: Movie, navController: NavController){
+fun MovieCard(movie: MovieEntity, navController: NavController){
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -39,7 +40,7 @@ fun MovieCard(movie: Movie, navController: NavController){
                 navController.currentBackStackEntry
                     ?.savedStateHandle
                     ?.set("selectedMovie", movie)
-                navController.navigate("details")
+                navController.navigate("details/${movie.id}")
             }.shadow(6.dp, RoundedCornerShape(12.dp)),
         elevation = CardDefaults.cardElevation(4.dp),
         shape = RoundedCornerShape(12.dp),
@@ -52,7 +53,7 @@ fun MovieCard(movie: Movie, navController: NavController){
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
-                model = "${Constant.IMAGE_BASE_URL}${movie.poster_path}",
+                model = "${Constant.IMAGE_BASE_URL}${movie.posterPath}",
                 contentDescription = movie.title,
                 modifier = Modifier
                     .size(100.dp)

@@ -11,14 +11,14 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MovieDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract suspend fun insertAMovie(movie:MovieEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract suspend fun insertMovies(movies: List<MovieEntity>)
 
-    @Query(" SELECT * FROM `movie-table`")
-    abstract fun getAllMovies(): Flow<List<MovieEntity>>
+    @Query(" SELECT * FROM `movie-table` WHERE page = :page AND movieType = :movieType")
+    abstract fun getAllMovies(page:Int, movieType:String): Flow<List<MovieEntity>>
 
     @Query(" SELECT * FROM `movie-table` WHERE isBookmarked = 1")
     abstract fun getBookmarkedMovies(): Flow<List<MovieEntity>>

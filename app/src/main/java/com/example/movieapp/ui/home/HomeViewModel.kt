@@ -131,7 +131,7 @@ class HomeViewModel @Inject constructor(
 //                val response = movieService.getTrendingMovies(Constant.API_KEY,trendingPage+1) //Fetching Next Page
 //                val currentMovies = (_trendingMovies.value as? Resource.Success)?.data.orEmpty()
 
-                val response: Resource<List<MovieEntity>> = repository.getTrendingMovies(nowPlayingPage + 1) // ✅ Ensuring proper type
+                val response: Resource<List<MovieEntity>> = repository.getTrendingMovies(trendingPage + 1) // ✅ Ensuring proper type
                 response.data?.let { println("#################" + it.count()) }
                 val currentMovies: List<MovieEntity> = (_trendingMovies.value as? Resource.Success<List<MovieEntity>>)?.data.orEmpty()
 

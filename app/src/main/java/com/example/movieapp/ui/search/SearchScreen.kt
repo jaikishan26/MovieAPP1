@@ -35,9 +35,9 @@ import com.example.movieapp.ui.components.MovieItem
 
 @Composable
 fun SearchScreen(
-    navController: NavController
+    navController: NavController, viewModel: SearchViewModel
 ){
-    val viewModel: SearchViewModel = viewModel()
+    //val viewModel: SearchViewModel = viewModel()
 
     val searchQuery by viewModel.searchQuery.collectAsState()
     val searchResults by viewModel.searchResults.collectAsState()
