@@ -8,16 +8,17 @@ import com.example.movieapp.Data.MovieDao
 import com.example.movieapp.Data.MovieDatebase
 import com.example.movieapp.Data.MovieMapper
 import com.example.movieapp.Data.MovieRepository
+import com.example.movieapp.MyApplication
 //import com.example.movieapp.Data.MovieDatebase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
-/*
+
 @Module
-class AppModule(private val context:Context) {
+class AppModule {
 
     @Provides
-    fun  provideContext(): Context = context
+    fun  provideContext(application: MyApplication): Context = application.applicationContext
 
     @Provides
     @Singleton
@@ -34,9 +35,9 @@ class AppModule(private val context:Context) {
 }
 
 
-//    @Provides
-//    @Singleton
-//    fun provideMovieRepository(apiService: ApiService, movieDao: MovieDao, movieMapper: MovieMapper)
-//    :MovieRepository = MovieRepository(movieDao, apiService,movieMapper)
+    @Provides
+    @Singleton
+    fun provideMovieRepository(apiService: ApiService, movieDao: MovieDao, movieMapper: MovieMapper)
+    :MovieRepository = MovieRepository(apiService, movieMapper,movieDao)
 
-}*/
+}

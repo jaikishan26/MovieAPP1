@@ -45,7 +45,7 @@ fun TrendingSection(viewModel: HomeViewModel, navController: NavController){
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(text = "Now Playing",
+        Text(text = "Trending",
             //style = MaterialTheme.typography.titleLarge,
             style = MaterialTheme.typography.headlineSmall.copy(
                 fontWeight = FontWeight.Bold,

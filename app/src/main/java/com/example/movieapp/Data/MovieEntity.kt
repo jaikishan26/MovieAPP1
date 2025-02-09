@@ -21,6 +21,8 @@ data class MovieEntity(
     val voteAverage: Double,
     @ColumnInfo(name = "isBookmarked")
     val isBookmarked: Boolean = false
+//    @ColumnInfo(name = "page")
+//    val page:Int
 )
 
 

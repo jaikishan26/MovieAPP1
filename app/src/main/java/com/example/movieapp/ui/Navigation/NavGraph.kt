@@ -14,15 +14,16 @@ import com.example.movieapp.Util.Screen
 import com.example.movieapp.ui.Saved.SavedMovieScreen
 import com.example.movieapp.ui.details.MovieDetailsScreen
 import com.example.movieapp.ui.home.HomeScreen
+import com.example.movieapp.ui.home.HomeViewModel
 import com.example.movieapp.ui.search.SearchScreen
 
 
 @Composable
-fun NavGraph(navController: NavHostController = rememberNavController()){
+fun NavGraph(navController: NavHostController = rememberNavController(), viewModel: HomeViewModel){
    NavHost(navController = navController,
        startDestination = "home") {
        composable("home"){
-           HomeScreen(navController)
+           HomeScreen(navController, viewModel)
        }
        composable(
            route = "details/{movieId}",

@@ -9,7 +9,7 @@ import com.example.movieapp.Movie
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-abstract class MovieDao {
+interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAMovie(movie:MovieEntity)

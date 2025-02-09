@@ -29,7 +29,7 @@ import com.example.movieapp.Util.Constant
 
 
 @Composable
-fun MovieItem(movie: Movie, onClick:()->Unit){
+fun MovieItem(movie: MovieEntity, onClick:()->Unit){
     Column(
         modifier = Modifier
             .width(135.dp)
@@ -38,7 +38,7 @@ fun MovieItem(movie: Movie, onClick:()->Unit){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(
-            model = "${Constant.IMAGE_BASE_URL}${movie.poster_path}",
+            model = "${Constant.IMAGE_BASE_URL}${movie.posterPath}",
             contentDescription = movie.title,
             modifier = Modifier.width(140.dp).height(200.dp).clip(RoundedCornerShape(8.dp))
         )

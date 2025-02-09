@@ -61,9 +61,9 @@ import com.example.movieapp.ui.components.SectionHeader
 //Displays now playing and Trending movies
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController){
+fun HomeScreen(navController: NavController, viewModel: HomeViewModel){
 
-   val viewModel: HomeViewModel = viewModel()
+   //val viewModel: HomeViewModel = viewModel()
 
     val nowPlayingMovies by viewModel.nowPlayingMovies.collectAsState()
     val trendingMovies by viewModel.trendingMovies.collectAsState()
@@ -148,7 +148,7 @@ fun HomeScreen(navController: NavController){
                 item {
                     nowPlayingMovies.let {resource ->
                         if(resource is Resource.Success && !resource.data.isNullOrEmpty()){
-                            FeaturedMovieBanner(movie = resource.data.first(),navController)
+                            //FeaturedMovieBanner(movie = resource.data.first(),navController)
                         }
                     }
                 }
