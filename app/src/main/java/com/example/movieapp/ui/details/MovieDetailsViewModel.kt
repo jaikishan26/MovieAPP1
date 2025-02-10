@@ -2,6 +2,7 @@ package com.example.movieapp.ui.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.movieapp.Data.MovieDao
 import com.example.movieapp.Data.MovieEntity
 import com.example.movieapp.Data.MovieRepository
 import com.example.movieapp.Movie
@@ -16,7 +17,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MovieDetailsViewModel @Inject constructor
-    (private val repository: MovieRepository) :ViewModel()
+    (private val repository: MovieRepository,
+            private val movieDao: MovieDao) :ViewModel()
 {
     private val _movie = MutableStateFlow<Resource<MovieEntity>>(Resource.Loading())
     val movie: StateFlow<Resource<MovieEntity>> get() = _movie
@@ -63,8 +65,23 @@ class MovieDetailsViewModel @Inject constructor
         }
     }
 //TODO..........
-    fun isMovieSaved(movieId: Int):Boolean{
-        return (_savedMovies.value as? Resource.Success)?.data?.any { it.id ==movieId }?: false
+//    fun isMovieSaved(movieId: Int):Boolean{
+//        return (_savedMovies.value as? Resource.Success)?.data?.any { it.id ==movieId }?: false
+//    }
+
+    suspend fun isMovieSaved(movieId:Int):Boolean{
+        return movieDao.isMovieBookmarked(movieId)
+    }
+
+    fun toggleBookmark(movie:MovieEntity){
+        viewModelScope.launch {
+            if(movie.isBookmarked){
+                removeMovie(movie)
+            }
+            else{
+                saveMovie(movie)
+            }
+        }
     }
     //Fetching from API only if needed for Deeplink
     fun fetchMovieDetails(movieId:Int){

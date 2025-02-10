@@ -1,9 +1,13 @@
 package com.example.movieapp.ui.Saved
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
@@ -15,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -32,11 +37,15 @@ fun SavedMovieScreen(navController: NavController, viewModel: MovieDetailsViewMo
 
 
     Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)) {
+        .fillMaxSize().background(Color.Black)
+        .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text(text = "Saved Movies",
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(8.dp)
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(WindowInsets.systemBars.asPaddingValues()).padding(8.dp),
+            textAlign = TextAlign.Center,
+            color = Color.White
             )
 
         when(savedMovies){

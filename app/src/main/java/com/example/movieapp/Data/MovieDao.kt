@@ -29,4 +29,8 @@ interface MovieDao {
     @Update
     abstract suspend fun updateMovie(movie:MovieEntity)
 
+    @Query("SELECT isBookmarked FROM `movie-table` WHERE id = :movieId")
+    suspend fun isMovieBookmarked(movieId: Int): Boolean
+
+
 }
