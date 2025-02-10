@@ -23,19 +23,11 @@ import kotlin.reflect.typeOf
 
 
 @Composable
-fun NavGraph(navController: NavHostController = rememberNavController(), viewModel: HomeViewModel,
+fun NavGraph(navController: NavHostController, viewModel: HomeViewModel,
              detialViewModel: MovieDetailsViewModel, searchViewModel: SearchViewModel){
    NavHost(navController = navController,
        startDestination = "home") {
-//       composable<MovieListRoute>{
-//           HomeScreen(navController, viewModel)
-//       }
-//
-//       composable<MovieDetailRoute>(
-//           typeMap = mapOf(
-//               typeOf<MovieEntity>()
-//           )
-//       )
+
        composable("home"){
            HomeScreen(navController, viewModel)
        }

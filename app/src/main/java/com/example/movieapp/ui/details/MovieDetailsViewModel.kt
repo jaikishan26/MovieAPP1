@@ -1,5 +1,6 @@
 package com.example.movieapp.ui.details
 
+import androidx.core.os.requestProfiling
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.Data.MovieDao
@@ -51,17 +52,25 @@ class MovieDetailsViewModel @Inject constructor
         viewModelScope.launch {
             val currentList = (_savedMovies.value as? Resource.Success)?.data?.toMutableList()?: mutableListOf()
 
-            if(currentList.contains(movie)){
-                currentList.remove(movie)
-                repository.bookmarkAMovie(movie, false)
+//            if(currentList.contains(movie)){
+//                currentList.remove(movie)
+//                repository.bookmarkAMovie(movie, false)
+//                _savedMovies.value = Resource.Success(currentList)
+//            }
+
+            if(currentList.any{it.id == movie.id}){
+                repository.bookmarkAMovie(movie,false)
+                currentList.removeIf { it.id ==movie.id }
                 _savedMovies.value = Resource.Success(currentList)
+                getBookmarkedMovies()
             }
         }
     }
 
     fun getBookmarkedMovies(){
         viewModelScope.launch {
-            _savedMovies.value = Resource.Success(repository.getBookmarkedMovies().first())
+           // _savedMovies.value = Resource.Success(repository.getBookmarkedMovies().first())
+            _savedMovies.value = Resource.Success(repository.getBookmarkedMovies().first().toList())
         }
     }
 //TODO..........
@@ -75,6 +84,7 @@ class MovieDetailsViewModel @Inject constructor
 
     fun toggleBookmark(movie:MovieEntity){
         viewModelScope.launch {
+            //val isSaved = isMovieSaved(movie.id)
             if(movie.isBookmarked){
                 removeMovie(movie)
             }
@@ -84,24 +94,25 @@ class MovieDetailsViewModel @Inject constructor
         }
     }
     //Fetching from API only if needed for Deeplink
-    fun fetchMovieDetails(movieId:Int){
+    fun fetchMovieDetails(movieId:Int) {
 
-//        if(_movie.value is Resource.Success) return //skip fetching if movie already set
-//
-//        viewModelScope.launch {
-//            _movie.value = Resource.Loading()
-//            try {
-//                //val response = movieService.getMovieDetails(movieId, Constant.API_KEY)
-//                val response = repository.get
-//                _movie.value = Resource.Success(response)
-//            } catch (e:Exception){
-//                _movie.value = Resource.Error("Failed to load movie details")
-//            }
+        if (_movie.value is Resource.Success) return //skip fetching if movie already set
+
+        viewModelScope.launch {
+            _movie.value = Resource.Loading()
+            try {
+                //val response = movieService.getMovieDetails(movieId, Constant.API_KEY)
+                val response = repository.getMovieDetails(movieId)
+                _movie.value = response
+            } catch (e: Exception) {
+                _movie.value = Resource.Error("Failed to load movie details")
+            }
 
 //            val response =
 //            _nowPlayingMovies.value = Resource.Loading()
 //            val response = movieService.getNowPlayingMovies(Constant.API_KEY)
 //            _nowPlayingMovies.value = Resource.Success(response.results)
         }
+    }
     
 }

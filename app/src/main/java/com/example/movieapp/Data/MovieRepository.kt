@@ -72,4 +72,14 @@ class MovieRepository @Inject constructor(
             movieDao.updateMovie(updatedMovie)
         }
     }
+
+    suspend fun getMovieDetails(movieId: Int): Resource<MovieEntity>{
+        return try {
+            val response = apiService.getMovieDetails(movieId, Constant.API_KEY)
+            val movie = movieMapper.toMovieEntity(response,1, "Deeplink" )
+            Resource.Success(movie)
+        } catch (e:Exception){
+            Resource.Error("Error fetching movie details: ${e.localizedMessage}")
+        }
+    }
 }
