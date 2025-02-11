@@ -10,11 +10,13 @@ import com.example.movieapp.Movie
 import com.example.movieapp.Util.Constant
 import com.example.movieapp.Util.Resource
 import com.example.movieapp.movieService
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+
 import javax.inject.Inject
 
 class MovieDetailsViewModel @Inject constructor
@@ -62,8 +64,10 @@ class MovieDetailsViewModel @Inject constructor
                 repository.bookmarkAMovie(movie,false)
                 currentList.removeIf { it.id ==movie.id }
                 _savedMovies.value = Resource.Success(currentList)
-                getBookmarkedMovies()
+                //getBookmarkedMovies()
             }
+            delay(300)
+            getBookmarkedMovies()
         }
     }
 
@@ -74,18 +78,22 @@ class MovieDetailsViewModel @Inject constructor
         }
     }
 //TODO..........
-//    fun isMovieSaved(movieId: Int):Boolean{
-//        return (_savedMovies.value as? Resource.Success)?.data?.any { it.id ==movieId }?: false
-//    }
-
-    suspend fun isMovieSaved(movieId:Int):Boolean{
-        return movieDao.isMovieBookmarked(movieId)
+    fun isMovieSaved(movieId: Int):Boolean{
+        return (_savedMovies.value as? Resource.Success)?.data?.any { it.id ==movieId }?: false
     }
+
+//    suspend fun isMovieSaved(movieId:Int):Boolean{
+//        return movieDao.isMovieBookmarked(movieId)
+//    }
 
     fun toggleBookmark(movie:MovieEntity){
         viewModelScope.launch {
-            //val isSaved = isMovieSaved(movie.id)
-            if(movie.isBookmarked){
+            val isSaved = isMovieSaved(movie.id)
+//            if(movie.isBookmarked){
+//                removeMovie(movie)
+//            }
+            if(isSaved)
+            {
                 removeMovie(movie)
             }
             else{
