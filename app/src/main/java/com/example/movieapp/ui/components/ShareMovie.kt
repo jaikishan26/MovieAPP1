@@ -6,8 +6,9 @@ import com.example.movieapp.Data.MovieEntity
 
 fun shareMovie(context: Context, movie:MovieEntity){
    // val movieUrl = "https://www.themoviedb.org/movie/${movie.id}"
-    val deepLinkUrl = "myapp://details/${movie.id}"
-    val shareText = "Check out this movie: ${movie.title}  \n\n$deepLinkUrl"
+    //val deepLinkUrl = "myapp://details/${movie.id}"
+    val movieUrl = "https://jaikishan26.github.io/myapp-deeplink/details/${movie.id}"
+    val shareText = "Check out this movie: ${movie.title}  \n\n$movieUrl"
 
     val sendIntent = Intent().apply {
         action = Intent.ACTION_SEND

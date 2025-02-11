@@ -26,20 +26,25 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-<!--            </intent-filter>-->
+            </intent-filter>
 
 <!--            &lt;!&ndash;Deeplink &ndash;&gt;-->
 <!--            &lt;!&ndash;intent-filter android:autoVerify="true"&ndash;&gt;-->
 <!--            <intent-filter>-->
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <intent-filter android:autoVerify="true">
+                    <action android:name="android.intent.action.VIEW"/>
+                    <category android:name="android.intent.category.DEFAULT"/>
+                    <category android:name="android.intent.category.BROWSABLE"/>
 
-                <!---supportsURL like :https://myapp.com/details/123 -->
-                <data
-                    android:scheme="myapp"
-                    android:host="details"
-                    android:pathPattern="/.*" />
+                    <!---supportsURL like :https://myapp.com/details/123 -->
+                    <data
+                        android:scheme="https"
+                        android:host="jaikishan26.github.io"
+                        android:pathPrefix="/myapp-deeplink/details/"/>
+<!--                <data-->
+<!--                    android:scheme="myapp"-->
+<!--                    android:host="details"-->
+<!--                    android:pathPattern="/.*" />-->
             </intent-filter>
 
         </activity>
