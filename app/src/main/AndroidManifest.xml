@@ -41,10 +41,6 @@
                         android:scheme="https"
                         android:host="jaikishan26.github.io"
                         android:pathPrefix="/myapp-deeplink/details/"/>
-<!--                <data-->
-<!--                    android:scheme="myapp"-->
-<!--                    android:host="details"-->
-<!--                    android:pathPattern="/.*" />-->
             </intent-filter>
 
         </activity>

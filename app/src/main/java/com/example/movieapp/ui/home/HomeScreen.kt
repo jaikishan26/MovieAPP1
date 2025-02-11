@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
@@ -63,8 +64,6 @@ import com.example.movieapp.ui.components.SectionHeader
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeViewModel){
 
-   //val viewModel: HomeViewModel = viewModel()
-
     val nowPlayingMovies by viewModel.nowPlayingMovies.collectAsState()
     val trendingMovies by viewModel.trendingMovies.collectAsState()
 
@@ -109,14 +108,13 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel){
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    IconButton(onClick = {/* TODO navigate to home*/ }) {
-                        //Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.White)
+                    IconButton(onClick = {}) {
                         Icon(painter = painterResource(id = R.drawable.home),
                             contentDescription = "Home",
                             tint = Color.White,
                             modifier = Modifier.size(30.dp))
                     }
-                    // Spacer(modifier = Modifier.weight(1f))
+
                     IconButton(onClick = {
                         navController.navigate("saved")
                     }) {
@@ -125,8 +123,8 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel){
                             tint = Color.White,
                             modifier = Modifier.size(30.dp))
                     }
-                    // Spacer(modifier = Modifier.weight(1f))
-                    IconButton(onClick = {/* TODO Implement profile navigation */}) {
+
+                    IconButton(onClick = {}) {
                         Icon(painter = painterResource(id = R.drawable.user),
                             contentDescription = "Home",
                             tint = Color.White,
@@ -139,7 +137,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel){
         content = {
             padding->
             LazyColumn(
-                modifier = Modifier.padding(padding)
+                modifier = Modifier.padding(padding).fillMaxSize()
                     .background(Color.Black),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
@@ -156,125 +154,13 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel){
                 //Now Playing Section of home screenn
                 item{
                     NowPlayingSection(viewModel, navController)
-//                    Text(text = "Now Playing",
-//                        //style = MaterialTheme.typography.titleLarge,
-//                        style = MaterialTheme.typography.headlineSmall.copy(
-//                            fontWeight = FontWeight.Bold,
-//                            color = Color.White
-//                        ),
-//                        modifier = Modifier.padding(8.dp) )
-//
-//                    when(nowPlayingMovies){
-//                        is Resource.Success -> {
-//                            val movies = (nowPlayingMovies as Resource.Success).data?: emptyList()
-//                            LazyRow (horizontalArrangement = Arrangement.spacedBy(8.dp),
-//                                modifier = Modifier.padding(horizontal = 8.dp)){
-//                                items(movies){
-//                                        movie ->
-//                                    MovieItem(movie=movie, onClick = {
-//                                        navController.currentBackStackEntry
-//                                            ?.savedStateHandle
-//                                            ?.set("selectedMovie", movie)
-//                                        navController.navigate("details")
-//                                    })
-//                                }
-//                            }
-//                        }
-//
-//                        is Resource.Error -> ErrorMessage(message = (nowPlayingMovies as Resource.Error).message)
-//
-//                        is Resource.Loading -> LoadingIndicator()
-//                    }
                 }
 
                 //Trending Section
                 item {
                     TrendingSection(viewModel, navController)
-//                    Text(text = "Trending",
-//                        style = MaterialTheme.typography.headlineSmall.copy(
-//                            fontWeight = FontWeight.Bold,
-//                            color = Color.White
-//                        ),
-//                        modifier = Modifier.padding(8.dp) )
-//                    when(trendingMovies){
-//                        is Resource.Success -> {
-//                            val movies = (trendingMovies as Resource.Success).data?: emptyList()
-//                            LazyRow (horizontalArrangement = Arrangement.spacedBy(8.dp),
-//                                modifier = Modifier.padding(horizontal = 8.dp)) {
-//                                items(movies){
-//                                        movie ->
-//                                    MovieItem(movie=movie, onClick = {
-//                                        navController.currentBackStackEntry
-//                                            ?.savedStateHandle
-//                                            ?.set("selectedMovie", movie)
-//                                        navController.navigate("details")
-//                                        // TODO navController.navigate("details/${movie.id}")
-//                                    })
-//                                }
-//                            }
-//                        }
-//
-//                        is Resource.Error -> ErrorMessage(message = (trendingMovies as Resource.Error).message)
-//
-//                        is Resource.Loading -> LoadingIndicator()
-//                    }
                 }
             }
-//            Column(
-//                modifier = Modifier.padding(padding)
-//            ) {
-//                Text("Now Playing",
-//                    style = MaterialTheme.typography.titleLarge,
-//                    modifier = Modifier.padding(8.dp) )
-//
-//                when(nowPlayingMovies){
-//                    is Resource.Success -> {
-//                        val movies = (nowPlayingMovies as Resource.Success).data?: emptyList()
-//                        LazyRow {
-//                            items(movies){
-//                                movie ->
-//                                MovieItem(movie=movie, onClick = {
-//                                    navController.currentBackStackEntry
-//                                        ?.savedStateHandle
-//                                        ?.set("selectedMovie", movie)
-//                                    navController.navigate("details")
-//                                })
-//                            }
-//                        }
-//                    }
-//
-//                    is Resource.Error -> ErrorMessage(message = (nowPlayingMovies as Resource.Error).message)
-//
-//                    is Resource.Loading -> LoadingIndicator()
-//                }
-
-//                Text("Trending",
-//                    style = MaterialTheme.typography.titleLarge,
-//                    modifier = Modifier.padding(8.dp) )
-//                when(trendingMovies){
-//                    is Resource.Success -> {
-//                        val movies = (trendingMovies as Resource.Success).data?: emptyList()
-//                        LazyRow {
-//                            items(movies){
-//                                    movie ->
-//                                MovieItem(movie=movie, onClick = {
-//                                    navController.currentBackStackEntry
-//                                        ?.savedStateHandle
-//                                        ?.set("selectedMovie", movie)
-//                                    navController.navigate("details")
-//                                    // TODO navController.navigate("details/${movie.id}")
-//                                })
-//                            }
-//                        }
-//                    }
-//
-//                    is Resource.Error -> ErrorMessage(message = (trendingMovies as Resource.Error).message)
-//
-//                    is Resource.Loading -> LoadingIndicator()
-//                }
-
-
-
         }
     )
 }

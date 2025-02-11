@@ -19,8 +19,7 @@ class MovieRepository @Inject constructor(
     private val apiService: ApiService,
     private val movieMapper: MovieMapper,
     private val movieDao: MovieDao
-) {   //apiservice to makeee requests to DB
-                                            // MOviedao to inteact with local database
+) {
 
     //Getting Now Playing Movies
 
@@ -31,14 +30,13 @@ class MovieRepository @Inject constructor(
             val response = apiService.getNowPlayingMovies(Constant.API_KEY,page) //network call
             val movies = movieMapper.toMovieEntityList(response.results, page,"NowPlaying")
             movieDao.insertMovies(movies)
-//            Resource.Success(movies)
             val list = movieDao.getAllMovies(page, "NowPlaying").first()
             Resource.Success(list)
 
-            //Resource.Error( "Error Occurred")
-
         } catch (e: Exception){
-            Resource.Error(e.message?:"Error Occurred")
+            val list = movieDao.getAllMovies(page, "NowPlaying").first()
+            println("%%%%%%%%%% ${list.size}")
+            Resource.Success(list)
         }
     }
 
@@ -51,9 +49,9 @@ class MovieRepository @Inject constructor(
             movieDao.insertMovies(movies)
             val list = movieDao.getAllMovies(page,"Trending").first()
             Resource.Success(list)
-            //Resource.Success(movies)
         } catch (e: Exception){
-            Resource.Error(e.message?:"Error Occurred")
+            val list = movieDao.getAllMovies(page,"Trending").first()
+            Resource.Success(list)
         }
     }
 

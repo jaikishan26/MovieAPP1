@@ -38,9 +38,6 @@ class MainActivity : ComponentActivity() {
             .appComponent.homeComponent().create()
         homeComponent.inject(this)
         super.onCreate(savedInstanceState)
-        //navController = rememberNavController()
-        //(applicationContext as MyApplication).appComponent.inject(this)
-        //(application as ).appComponent.inject(this)
         enableEdgeToEdge()
         setContent {
             //navController = rememberNavController()
@@ -78,17 +75,29 @@ class MainActivity : ComponentActivity() {
                     return
                 }
 
-                if(::navController.isInitialized){
-                    Log.d("DeepLinkTest", "Navigating to details/$movieId")
+                if(!::navController.isInitialized){
+                    Log.e("DeepLinkTest", "NavController is not initialized")
+                    return
+                }
+
+                runOnUiThread {
                     navController.navigate("details/$movieId"){
                         popUpTo("home") { inclusive = false }
                         launchSingleTop = true
                     }
                 }
-                else {
-                    Log.e("DeepLinkTest", "NavController is not initialized")
-                    println("DeepLink Error")
-                }
+
+//                if(::navController.isInitialized){
+//                    Log.d("DeepLinkTest", "Navigating to details/$movieId")
+//                    navController.navigate("details/$movieId"){
+//                        popUpTo("home") { inclusive = false }
+//                        launchSingleTop = true
+//                    }
+//                }
+//                else {
+//                    Log.e("DeepLinkTest", "NavController is not initialized")
+//                    println("DeepLink Error")
+
             } catch (e:Exception){
                 e.printStackTrace()
             }

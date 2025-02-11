@@ -9,7 +9,6 @@ import com.example.movieapp.Data.MovieRepository
 import com.example.movieapp.Movie
 import com.example.movieapp.Util.Constant
 import com.example.movieapp.Util.Resource
-import com.example.movieapp.movieService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,17 +53,10 @@ class MovieDetailsViewModel @Inject constructor
         viewModelScope.launch {
             val currentList = (_savedMovies.value as? Resource.Success)?.data?.toMutableList()?: mutableListOf()
 
-//            if(currentList.contains(movie)){
-//                currentList.remove(movie)
-//                repository.bookmarkAMovie(movie, false)
-//                _savedMovies.value = Resource.Success(currentList)
-//            }
-
             if(currentList.any{it.id == movie.id}){
                 repository.bookmarkAMovie(movie,false)
                 currentList.removeIf { it.id ==movie.id }
                 _savedMovies.value = Resource.Success(currentList)
-                //getBookmarkedMovies()
             }
             delay(300)
             getBookmarkedMovies()
@@ -73,25 +65,17 @@ class MovieDetailsViewModel @Inject constructor
 
     fun getBookmarkedMovies(){
         viewModelScope.launch {
-           // _savedMovies.value = Resource.Success(repository.getBookmarkedMovies().first())
             _savedMovies.value = Resource.Success(repository.getBookmarkedMovies().first().toList())
         }
     }
-//TODO..........
+
     fun isMovieSaved(movieId: Int):Boolean{
         return (_savedMovies.value as? Resource.Success)?.data?.any { it.id ==movieId }?: false
     }
 
-//    suspend fun isMovieSaved(movieId:Int):Boolean{
-//        return movieDao.isMovieBookmarked(movieId)
-//    }
-
     fun toggleBookmark(movie:MovieEntity){
         viewModelScope.launch {
             val isSaved = isMovieSaved(movie.id)
-//            if(movie.isBookmarked){
-//                removeMovie(movie)
-//            }
             if(isSaved)
             {
                 removeMovie(movie)
@@ -109,17 +93,11 @@ class MovieDetailsViewModel @Inject constructor
         viewModelScope.launch {
             _movie.value = Resource.Loading()
             try {
-                //val response = movieService.getMovieDetails(movieId, Constant.API_KEY)
                 val response = repository.getMovieDetails(movieId)
                 _movie.value = response
             } catch (e: Exception) {
                 _movie.value = Resource.Error("Failed to load movie details")
             }
-
-//            val response =
-//            _nowPlayingMovies.value = Resource.Loading()
-//            val response = movieService.getNowPlayingMovies(Constant.API_KEY)
-//            _nowPlayingMovies.value = Resource.Success(response.results)
         }
     }
     

@@ -67,7 +67,7 @@ import kotlinx.coroutines.launch
 fun MovieDetailsScreen(
     navController: NavController, movieId: Int, viewModel:MovieDetailsViewModel //  done to handle deeplink scenario
 ){
-    //val viewModel: MovieDetailsViewModel = viewModel()
+
     val savedState = navController.previousBackStackEntry?.savedStateHandle
     val selectedMovie = savedState?.get<MovieEntity>("selectedMovie")
 
@@ -81,12 +81,6 @@ fun MovieDetailsScreen(
         {
             viewModel.fetchMovieDetails(movieId)
         }
-//        if(selectedMovie !=null){
-//            viewModel.setMovieDetails((selectedMovie)) //set movie directly from Home Screen
-//        }
-//        else{
-//            viewModel.fetchMovieDetails(movieId) //Fetch from APi if navigated via Deep LInk
-//        }
     }
 
     val movieState by viewModel.movie.collectAsState()
@@ -104,18 +98,14 @@ fun MovieDetailsScreen(
     ) {
         when(movieState){
             is Resource.Loading -> CircularProgressIndicator(color = Color.White, modifier = Modifier.align(Alignment.Center))
-            //CircularProgressIndicator(modifier = Modifier.fillMaxSize())
             is Resource.Success -> {
                 val movie = (movieState as Resource.Success).data ?: return
-              //  val isSaved = movie.isBookmarked
-               // var isSavedState by remember { mutableStateOf(viewModel.isMovieSaved(movie.id)) }
                 var isSavedState by remember { mutableStateOf(false) }
 
                 LaunchedEffect(movie.id) {
                     isSavedState = viewModel.isMovieSaved(movie.id)
                 }
-                //val isSaved = movie?.id?.let { viewModel.isMovieSaved(it) }
-                //val isSaved = savedMovies is Resource.Success && (savedMovies as Resource.Success).data!!.contains(movie)
+
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -143,7 +133,6 @@ fun MovieDetailsScreen(
                             color = Color.White,
                             textAlign = TextAlign.Center
                         )
-                            //modifier = Modifier.fillMaxWidth())
                     }
 
 
@@ -160,14 +149,6 @@ fun MovieDetailsScreen(
                                     viewModel.toggleBookmark(movie)
                                     isSavedState = !isSavedState
                                 }
-//                                movie?.let {
-//                                    if (isSavedState) {
-//                                        viewModel.removeMovie(it)
-//                                    } else {
-//                                        viewModel.saveMovie(it)
-//                                    }
-//                                    isSavedState = !isSavedState
-//                                }
                             },
                             modifier = Modifier.weight(1f),
                             colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
@@ -177,7 +158,6 @@ fun MovieDetailsScreen(
                                 contentDescription = "My List",
                                 tint = Color.White
                             )
-                            //Icon(Icons.Default.Add, contentDescription = "Bookmark", tint = Color.White)
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(text = "My List",
                                 color = Color.White

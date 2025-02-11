@@ -2,8 +2,12 @@ package com.example.movieapp.ui.home
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -16,6 +20,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -51,7 +56,6 @@ fun NowPlayingSection(viewModel: HomeViewModel, navController: NavController){
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(text = "Now Playing",
-            //style = MaterialTheme.typography.titleLarge,
             style = MaterialTheme.typography.headlineSmall.copy(
                 fontWeight = FontWeight.Bold,
                 color = Color.White
@@ -74,10 +78,16 @@ fun NowPlayingSection(viewModel: HomeViewModel, navController: NavController){
                         })
                     }
 
-                        ///TODO .....
                     item {
                         if(isNowPlayingLoading){
-                            CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+                            Box(
+                                modifier = Modifier
+                                    .fillParentMaxWidth()
+                                    .height(150.dp), // Ensure proper height
+                                contentAlignment = Alignment.Center
+                            ) {
+                                LoadingIndicator()
+                            }
                         }
                     }
                 }
@@ -85,7 +95,15 @@ fun NowPlayingSection(viewModel: HomeViewModel, navController: NavController){
 
             is Resource.Error -> ErrorMessage(message = (nowPlayingMovies as Resource.Error).message)
 
-            is Resource.Loading -> LoadingIndicator()
+            is Resource.Loading ->
+            {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(color = Color.White)
+                    }
+            }
         }
     }
 

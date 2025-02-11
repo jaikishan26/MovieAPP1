@@ -51,25 +51,4 @@ fun MovieItem(movie: MovieEntity, onClick:()->Unit){
             overflow = TextOverflow.Ellipsis
         )
     }
-//    /*Card(
-//
-//    ) {
-//        Row(
-//            modifier = Modifier.padding(8.dp)
-//        ) {
-//            AsyncImage(
-//                model = "${Constant.IMAGE_BASE_URL}${movie.poster_path}",
-//                contentDescription = movie.title,
-//                modifier = Modifier.size(100.dp).clip(RoundedCornerShape(8.dp))
-//            )
-//            Column(
-//                modifier = Modifier.padding(start = 8.dp)
-//            ) {
-//                Text(
-//                    text = movie.title, style = MaterialTheme.typography.headlineLarge
-//                )
-//                Text(text = movie.overview, maxLines = 2, overflow = TextOverflow.Ellipsis)
-//            }
-//        }
-//    }*/
 }

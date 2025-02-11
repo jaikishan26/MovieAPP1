@@ -15,10 +15,6 @@ class NetworkModule {
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient{
-        //return OkHttpClient.Builder().addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            //.build()}
-    //logging intercepto should be removed in production as it can be a security risk- user data, etc
-        // can use above nly in case of debugging etc
         return OkHttpClient.Builder().build()
     }
 

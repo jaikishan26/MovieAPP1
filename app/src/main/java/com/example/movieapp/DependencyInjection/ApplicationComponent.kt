@@ -25,7 +25,6 @@ interface ApplicationComponent {
 @Subcomponent
 interface HomeComponent{
     fun inject(activity: MainActivity)
-    //fun getViewModel(): HomeViewModel
 
     @Subcomponent.Factory
     interface Factory{

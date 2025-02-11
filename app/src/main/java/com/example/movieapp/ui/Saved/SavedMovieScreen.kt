@@ -30,10 +30,9 @@ import com.example.movieapp.ui.details.MovieDetailsViewModel
 
 @Composable
 fun SavedMovieScreen(navController: NavController, viewModel: MovieDetailsViewModel){
-    //val viewModel: MovieDetailsViewModel = viewModel()
 
     val savedMovies by viewModel.savedMovies.collectAsState()
-    //val savedMovies
+
 
 
     Column(modifier = Modifier

@@ -39,8 +39,6 @@ fun NavGraph(navController: NavHostController, viewModel: HomeViewModel,
        ){ backStackEntry ->
            val movieId = backStackEntry.arguments?.getInt("movieId")?:-1
            MovieDetailsScreen(navController, movieId, detialViewModel)
-           //backStackEntry ->
-           //val movieId = backStackEntry.arguments?.getString("movieId")?.toIntOrNull()
 
        }
        composable("search"){
@@ -51,19 +49,5 @@ fun NavGraph(navController: NavHostController, viewModel: HomeViewModel,
            SavedMovieScreen(navController, detialViewModel)
        }
 
-
-
-       /*composable(Screen.DetailScreen.route+ "/{movieId}"){
-           backStackEntry ->
-           val movieId = backStackEntry.arguments?.getString("movieId")?.toIntOrNull()
-           //MovieDetailScreen(movieId = movieId, navController = navController)
-       }*/
-       /*composable(Screen.SearchScreen.route){
-           SearchScreen(navController)
-       }
-
-       composable(Screen.SavedScreen.route){
-           SavedScreen(navController)
-       }*/
    }
 }

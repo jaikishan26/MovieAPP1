@@ -41,13 +41,12 @@ import com.example.movieapp.ui.components.MovieItem
 fun SearchScreen(
     navController: NavController, viewModel: SearchViewModel
 ){
-    //val viewModel: SearchViewModel = viewModel()
 
     val searchQuery by viewModel.searchQuery.collectAsState()
     val searchResults by viewModel.searchResults.collectAsState()
 
-    Log.d("SearchScreen", "Current Query: $searchQuery") // ✅ Debug Query in UI
-    Log.d("SearchScreen", "Current Results: $searchResults") // ✅ Debug Search Results
+    Log.d("SearchScreen", "Current Query: $searchQuery")
+    Log.d("SearchScreen", "Current Results: $searchResults")
 
 
     Column (
@@ -93,12 +92,6 @@ fun SearchScreen(
                     items(movies){
                         movie ->
                         MovieCard(movie, navController)
-//                        MovieItem(movie=movie, onClick = {
-//                            navController.currentBackStackEntry?.savedStateHandle
-//                                ?.set("selectedMovie", movie)
-//                            navController.navigate(("details"))
-//                        }
- //                       )
                     }
                 }
             }

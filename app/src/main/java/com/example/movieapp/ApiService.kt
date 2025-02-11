@@ -7,19 +7,17 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-private val retrofit = Retrofit.Builder().baseUrl(Constant.BASE_URL)
-    .addConverterFactory(GsonConverterFactory.create())
-    .build()
+//private val retrofit = Retrofit.Builder().baseUrl(Constant.BASE_URL)
+//    .addConverterFactory(GsonConverterFactory.create())
+//    .build()
 
 //service that alows us to get categories.hp file which we will convert to Json object
 //create method provides access to service methods
-    val movieService = retrofit.create(ApiService::class.java)
+    //val movieService = retrofit.create(ApiService::class.java)
 
 
 
 interface ApiService {
-//    @GET("categories.php")
-//    suspend fun getNowPlayingMovies(): MovieResponse
 
 
     @GET("movie/now_playing")

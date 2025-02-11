@@ -11,7 +11,6 @@ import com.example.movieapp.Data.MovieMapper
 import com.example.movieapp.Movie
 import com.example.movieapp.Util.Constant
 import com.example.movieapp.Util.Resource
-import com.example.movieapp.movieService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -56,19 +55,13 @@ class SearchViewModel @Inject constructor(
     private fun searchMovies(query: String){
         viewModelScope.launch(Dispatchers.IO) {
             _searchResults.value = Resource.Loading()
-            Log.d("SearchViewModel", "Searching for: $query") // ✅ Debug Query
+            Log.d("SearchViewModel", "Searching for: $query")
 
             try{
-               // val response = movieService.searchMovies(query, Constant.API_KEY)
-//                Log.d("SearchViewModel", "Total Results: ${response.total_results}")
-//                Log.d("SearchViewModel", "Total Pages: ${response.total_pages}")
-//                Log.d("SearchViewModel", "Movies Count: ${response.results.size}")
                 val response = apiService.searchMovies(query, Constant.API_KEY)
                 val searchMovies = movieMapper.toMovieEntityList(response.results,0,"search" )
                 _searchResults.value = Resource.Success(searchMovies)
-                //Log.d("SearchViewModel", "API Response: ${response.results}")
             } catch(e:Exception){
-                //Log.e("SearchViewModel", "Error: ${e.message}") // ✅ Debug Errors
                 _searchResults.value = Resource.Error("Error: ${e.message}")
 
             }
