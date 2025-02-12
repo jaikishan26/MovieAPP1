@@ -75,17 +75,29 @@ class MainActivity : ComponentActivity() {
                     return
                 }
 
-                if(!::navController.isInitialized){
-                    Log.e("DeepLinkTest", "NavController is not initialized")
-                    return
-                }
-
-                runOnUiThread {
+                if(::navController.isInitialized){
                     navController.navigate("details/$movieId"){
                         popUpTo("home") { inclusive = false }
                         launchSingleTop = true
                     }
                 }
+
+                else {
+                    Log.e("DeepLinkTest", "NavController is not initialized")
+                    println("DeepLink Error")
+                }
+
+//                if(!::navController.isInitialized){
+//                    Log.e("DeepLinkTest", "NavController is not initialized")
+//                    return
+//                }
+//
+//                runOnUiThread {
+//                    navController.navigate("details/$movieId"){
+//                        popUpTo("home") { inclusive = false }
+//                        launchSingleTop = true
+//                    }
+//                }
 
 //                if(::navController.isInitialized){
 //                    Log.d("DeepLinkTest", "Navigating to details/$movieId")

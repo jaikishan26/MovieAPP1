@@ -33,7 +33,7 @@ class MovieRepository @Inject constructor(
             val list = movieDao.getAllMovies(page, "NowPlaying").first()
             Resource.Success(list)
 
-        } catch (e: Exception){
+        } catch (e: Exception){ 
             val list = movieDao.getAllMovies(page, "NowPlaying").first()
             println("%%%%%%%%%% ${list.size}")
             Resource.Success(list)

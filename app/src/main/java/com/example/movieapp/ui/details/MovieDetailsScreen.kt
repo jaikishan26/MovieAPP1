@@ -118,7 +118,7 @@ fun MovieDetailsScreen(
                         AsyncImage(
                             model = "${Constant.IMAGE_BASE_URL}${movie.posterPath}",
                             contentDescription = "${movie.title} Poster",
-                            modifier = Modifier.size(400.dp)
+                            modifier = Modifier.size(250.dp)
                                 .clip(RoundedCornerShape(12.dp))
                                 .fillMaxWidth()
                         )
